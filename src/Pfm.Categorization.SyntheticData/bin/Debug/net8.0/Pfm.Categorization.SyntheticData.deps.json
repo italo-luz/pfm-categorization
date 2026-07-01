@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Pfm.Categorization.SyntheticData/1.0.0": {
+        "dependencies": {
+          "Pfm.Categorization.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "Pfm.Categorization.SyntheticData.dll": {}
+        }
+      },
+      "Pfm.Categorization.Contracts/1.0.0": {
+        "runtime": {
+          "Pfm.Categorization.Contracts.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Pfm.Categorization.SyntheticData/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Pfm.Categorization.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
