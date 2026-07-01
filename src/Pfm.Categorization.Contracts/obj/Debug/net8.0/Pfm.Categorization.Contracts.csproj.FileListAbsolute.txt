@@ -5,6 +5,7 @@
 /home/italo/Documentos/git/AI/pfm-categorization/src/Pfm.Categorization.Contracts/obj/Debug/net8.0/Pfm.Categorization.Contracts.AssemblyInfoInputs.cache
 /home/italo/Documentos/git/AI/pfm-categorization/src/Pfm.Categorization.Contracts/obj/Debug/net8.0/Pfm.Categorization.Contracts.AssemblyInfo.cs
 /home/italo/Documentos/git/AI/pfm-categorization/src/Pfm.Categorization.Contracts/obj/Debug/net8.0/Pfm.Categorization.Contracts.csproj.CoreCompileInputs.cache
+/home/italo/Documentos/git/AI/pfm-categorization/src/Pfm.Categorization.Contracts/obj/Debug/net8.0/Pfm.Categorization.Contracts.sourcelink.json
 /home/italo/Documentos/git/AI/pfm-categorization/src/Pfm.Categorization.Contracts/obj/Debug/net8.0/Pfm.Categorization.Contracts.dll
 /home/italo/Documentos/git/AI/pfm-categorization/src/Pfm.Categorization.Contracts/obj/Debug/net8.0/refint/Pfm.Categorization.Contracts.dll
 /home/italo/Documentos/git/AI/pfm-categorization/src/Pfm.Categorization.Contracts/obj/Debug/net8.0/Pfm.Categorization.Contracts.pdb
