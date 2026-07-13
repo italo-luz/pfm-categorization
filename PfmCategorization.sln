@@ -9,6 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pfm.Categorization.Contract
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pfm.Categorization.SyntheticData", "src\Pfm.Categorization.SyntheticData\Pfm.Categorization.SyntheticData.csproj", "{42A11F47-3022-413D-8CC8-3A01C74D9043}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pfm.Categorization.WebApi", "src\Pfm.Categorization.WebApi\Pfm.Categorization.WebApi.csproj", "{CF15ED9D-3529-4642-951A-E3E25FD36858}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{592BCF13-DE12-4102-8E77-42612DB5B90E}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +33,14 @@ Global
 		{42A11F47-3022-413D-8CC8-3A01C74D9043}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42A11F47-3022-413D-8CC8-3A01C74D9043}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42A11F47-3022-413D-8CC8-3A01C74D9043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF15ED9D-3529-4642-951A-E3E25FD36858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF15ED9D-3529-4642-951A-E3E25FD36858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF15ED9D-3529-4642-951A-E3E25FD36858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF15ED9D-3529-4642-951A-E3E25FD36858}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C9F15A2E-499A-4C4D-A8CE-A9E9EC3EF772} = {C03633AD-C14D-4679-BA9E-A972FFA95B13}
 		{42A11F47-3022-413D-8CC8-3A01C74D9043} = {C03633AD-C14D-4679-BA9E-A972FFA95B13}
+		{CF15ED9D-3529-4642-951A-E3E25FD36858} = {C03633AD-C14D-4679-BA9E-A972FFA95B13}
 	EndGlobalSection
 EndGlobal

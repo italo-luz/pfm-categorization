@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Pfm.Categorization.SyntheticData")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a32f56e1602ef9c68c6595b1966f4064a16c126e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+443b7f0433dff2d4b3dc680776ef3446d8d2fdd1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Pfm.Categorization.SyntheticData")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Pfm.Categorization.SyntheticData")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

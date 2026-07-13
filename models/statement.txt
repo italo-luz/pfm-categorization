@@ -1,0 +1,193 @@
+--- Agregação ---
+
+DECLARE @MonthlySpendingTarget DECIMAL(18,2);
+DECLARE @StartDateId    INT = @StartDateIdParam;
+DECLARE @EndDateId      INT = @EndDateIdParam;
+DECLARE @StartYearMonth INT = @StartDateIdParam / 100;
+DECLARE @EndYearMonth   INT = @EndDateIdParam / 100;
+
+
+SELECT TOP (1)
+	   @MonthlySpendingTarget = ISNULL(MonthlySpendingTarget, 0)
+FROM serving.DimCLient
+WHERE TradingAccount = @TradingAccountParam
+ORDER BY ClientId ASC;
+
+SELECT @MonthlySpendingTarget AS MonthlySpendingTarget;
+
+SELECT
+		SUM(CASE WHEN f.Amount > 0 THEN f.Amount ELSE 0 END) AS TotalCredit,
+		SUM(CASE WHEN f.Amount < 0 THEN f.Amount ELSE 0 END) AS TotalDebit,
+		Result = SUM(f.Amount)
+FROM	serving.FactTransaction f WITH (INDEX (IDX_FactTransaction_Agg_Client_Date))
+WHERE   f.ClientId IN (
+			SELECT ClientId
+			FROM serving.DimClient
+			WHERE TradingAccount = @TradingAccountParam
+		)
+  AND	f.YearMonth BETWEEN @StartYearMonth AND @EndYearMonth
+  AND	f.DateId BETWEEN @StartDateId AND @EndDateId;
+  
+SELECT
+		cat.CategoryId,
+		cat.CategoryName,
+		cat.TransactionType,
+		cat.DisplayOrder,
+		COALESCE(SUM(f.Amount), 0) AS Amount,
+		COUNT(f.TransactionId) AS Count
+FROM serving.DimCategory cat
+LEFT JOIN serving.FactTransaction f WITH (INDEX (IDX_FactTransaction_Agg_Client_Date))
+	   ON  f.CategoryId = cat.CategoryId
+	   AND f.ClientId IN (
+			SELECT ClientId
+			FROM serving.DimClient
+			WHERE TradingAccount = @TradingAccountParam
+	   )
+	   AND f.YearMonth BETWEEN @StartYearMonth AND @EndYearMonth
+	   AND f.DateId BETWEEN @StartDateId AND @EndDateId
+GROUP BY
+	   cat.CategoryId,
+	   cat.CategoryName,
+	   cat.TransactionType,
+	   cat.DisplayOrder
+ORDER BY
+	   cat.TransactionType, cat.DisplayOrder;
+	   
+;WITH
+DateSpan AS
+(
+	SELECT
+			d.DateId,
+			d.[Date]
+	FROM    serving.DimDate d
+	WHERE   d.[DateId] BETWEEN @StartDateId AND @EndDateId
+),
+AggByDate AS
+(
+	SELECT
+			f.DateId,
+			SUM(CASE WHEN f.Amount > 0 THEN f.Amount ELSE 0 END) AS TotalCredit,
+			SUM(CASE WHEN f.Amount < 0 THEN f.Amount ELSE 0 END) AS TotalDebit
+	FROM    serving.FactTransaction f WITH (INDEX (IDX_FactTransaction_Agg_Client_Date))
+	WHERE   f.ClientId IN (
+				SELECT ClientId
+				FROM serving.DimClient
+				WHERE TradingAccount = @TradingAccountParam
+			)
+	  AND   f.YearMonth BETWEEN @StartYearMonth AND @EndYearMonth
+	  AND	f.DateId BETWEEN @StartDateId AND @EndDateId
+	GROUP   BY f.DateId
+)
+SELECT
+		StartDate = ds.[Date],
+		EndDate   = ds.[Date],
+		TotalCredit = ISNULL(a.TotalCredit, 0),
+		TotalDebit  = ISNULL(a.TotalDebit, 0)
+FROM    DateSpan ds
+LEFT    JOIN AggByDate a ON a.DateId = ds.DateId
+ORDER   BY ds.[Date];
+
+;WITH
+DateSpan AS
+(
+	SELECT
+			d.DateId,
+			d.[Date],
+			WeekOfMonth = 1 + ((DAY(d.[Date]) - 1) / 7)
+	FROM    serving.DimDate d
+	WHERE   d.DateId BETWEEN @StartDateId AND @EndDateId
+),
+AggByDate AS
+(
+	SELECT
+			f.DateId,
+			SUM(CASE WHEN f.Amount > 0 THEN f.Amount ELSE 0 END) AS TotalCredit,
+			SUM(CASE WHEN f.Amount < 0 THEN f.Amount ELSE 0 END) AS TotalDebit
+	FROM    serving.FactTransaction f WITH (INDEX (IDX_FactTransaction_Agg_Client_Date))
+	WHERE   f.ClientId IN (
+				SELECT ClientId
+				FROM serving.DimClient
+				WHERE TradingAccount = @TradingAccountParam
+			)
+	  AND   f.YearMonth BETWEEN @StartYearMonth AND @EndYearMonth
+	  AND	f.DateId BETWEEN @StartDateId AND @EndDateId
+	GROUP   BY f.DateId
+),
+Joined AS
+(
+	SELECT
+			ds.WeekOfMonth,
+			ds.[Date],
+			TotalCredit = ISNULL(a.TotalCredit, 0),
+			TotalDebit = ISNULL(a.TotalDebit, 0)
+	FROM    DateSpan ds
+	LEFT    JOIN AggByDate a ON a.DateId = ds.DateID
+)
+SELECT
+		StartDate	= MIN([Date]),
+		EndDate		= MAX([Date]),
+		TotalCredit	= SUM(TotalCredit),
+		TotalDebit	= SUM(TotalDebit)
+FROM    Joined
+GROUP   BY WeekOfMonth
+ORDER   BY WeekOfMonth;
+
+;WITH
+MonthsSpan AS
+(
+	SELECT
+			d.[Year],
+			d.[Month],
+			YearMonth = d.[Year] * 100 + d.[Month],
+			StartDate = MIN(d.[Date]),
+			EndDate   = MAX(d.[Date])
+	FROM    serving.DimDate d
+	WHERE   d.DateId BETWEEN @StartDateId AND @EndDateId
+	GROUP   BY d.[Year], d.[Month]
+),
+AggByMonth AS
+(
+	SELECT
+			f.YearMonth,
+			SUM(CASE WHEN f.Amount > 0 THEN f.Amount ELSE 0 END) AS TotalCredit,
+			SUM(CASE WHEN f.Amount < 0 THEN f.Amount ELSE 0 END) AS TotalDebit
+	FROM    serving.FactTransaction f WITH (INDEX (IDX_FactTransaction_Agg_Client_Date))
+	WHERE   f.ClientId IN (
+				SELECT ClientId
+				FROM serving.DimClient
+				WHERE TradingAccount = @TradingAccountParam
+			)
+	  AND   f.YearMonth BETWEEN @StartYearMonth AND @EndYearMonth
+	  AND	f.DateId BETWEEN @StartDateId AND @EndDateId
+	GROUP   BY f.YearMonth
+)
+SELECT
+		m.StartDate,
+		m.EndDate,
+		TotalCredit = ISNULL(a.TotalCredit,  0),
+		TotalDebit  = ISNULL(a.TotalDebit, 0)
+FROM    MonthsSpan m
+LEFT    JOIN AggByMonth a ON a.YearMonth = m.YearMonth
+ORDER   BY m.[Year], m.[Month];
+
+--- Agregação ---
+
+--- Listagem ---
+SELECT TOP (@PageSize)
+	  f.TransactionId,
+	  f.OriginalTransactionId,
+	  f.Amount,
+	  f.Description,
+	  f.OccurredAt,
+	  cat.CategoryId,
+	  cat.CategoryName,
+	  cat.TransactionType
+FROM serving.FactTransaction f WITH (INDEX (IDX_FactTransaction_List_ClientCat_DateDesc))
+JOIN serving.DimCategory cat ON f.CategoryId = cat.CategoryId
+WHERE f.ClientId IN (SELECT ClientId FROM serving.DimClient WHERE TradingAccount = @TradingAccount)
+  AND f.CategoryId = @CategoryId
+  AND f.YearMonth BETWEEN @StartYearMonth AND @EndYearMonth
+  AND f.DateId    BETWEEN @StartDateId   AND @EndDateId
+  /*** KEYSET_PAGINATION_FILTER ***/
+ORDER BY f.OccurredAt DESC, f.TransactionId DESC;
+--- Listagem ---
