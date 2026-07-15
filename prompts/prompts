@@ -1,0 +1,115 @@
+Antes de iniciar qualquer implementação, faça uma leitura completa dos quatro arquivos existentes no diretório `/docs`.
+
+Seu objetivo neste momento é apenas compreender profundamente o projeto e estabelecer esses documentos como fonte de contexto para todo o desenvolvimento daqui em diante.
+
+Siga estas instruções:
+
+1. Localize e leia integralmente os quatro arquivos do diretório `/docs`.
+
+2. Não altere, crie, mova ou exclua nenhum arquivo.
+
+3. Não implemente código, não execute refatorações e não faça mudanças no projeto neste momento.
+
+4. Analise os documentos em conjunto, identificando:
+
+   * objetivo geral do projeto;
+   * escopo funcional e técnico;
+   * arquitetura proposta;
+   * componentes e responsabilidades;
+   * fluxos principais;
+   * decisões arquiteturais já tomadas;
+   * restrições e requisitos não funcionais;
+   * padrões, convenções e diretrizes de desenvolvimento;
+   * critérios de aceite;
+   * riscos, pendências e decisões ainda em aberto;
+   * dependências entre etapas, features, PBIs ou componentes.
+
+5. Identifique possíveis contradições, ambiguidades, lacunas ou informações divergentes entre os documentos. Não tente resolvê-las por conta própria. Apenas destaque-as claramente.
+
+6. Caso os documentos tenham níveis diferentes de autoridade, detalhe qual parece ser a relação entre eles, por exemplo:
+
+   * documento principal;
+   * especificação complementar;
+   * plano de implementação;
+   * decisão arquitetural;
+   * material de apoio.
+
+7. A partir deste momento, considere os arquivos do diretório `/docs` como fonte oficial de contexto do projeto. Toda futura sugestão, implementação ou decisão deverá:
+
+   * respeitar o que está definido nesses documentos;
+   * evitar decisões incompatíveis com a arquitetura estabelecida;
+   * preservar os requisitos e restrições existentes;
+   * indicar explicitamente quando uma solicitação futura entrar em conflito com os documentos;
+   * não inventar requisitos que não estejam documentados ou informados por mim.
+
+8. Antes de qualquer implementação futura:
+
+   * relacione a tarefa solicitada aos documentos;
+   * identifique os requisitos aplicáveis;
+   * verifique impactos arquiteturais;
+   * preserve compatibilidade com as decisões já estabelecidas;
+   * mantenha o escopo restrito ao que foi solicitado.
+
+9. Quando houver mais de uma interpretação possível, não escolha silenciosamente. Apresente a ambiguidade e informe qual interpretação pretende adotar.
+
+10. Ao concluir a leitura, apresente somente:
+
+* lista dos quatro arquivos lidos;
+* resumo executivo do projeto;
+* arquitetura e componentes identificados;
+* principais fluxos;
+* decisões e restrições que devem ser preservadas;
+* convenções que deverão orientar o código;
+* dependências e ordem lógica de implementação;
+* ambiguidades, contradições ou lacunas encontradas;
+* checklist que você usará para validar as futuras implementações.
+
+Não faça nenhuma alteração no repositório até que eu confirme que seu entendimento está correto.
+
+
+
+----
+
+
+Durante esta etapa do projeto, trabalhe somente como copiloto técnico e revisor.
+
+Você pode:
+
+* ler e analisar os arquivos do projeto;
+* explicar o funcionamento do código;
+* propor soluções e alternativas;
+* elaborar planos de implementação;
+* gerar trechos ou arquivos completos de código na resposta;
+* revisar alterações que eu fizer;
+* analisar diffs, erros de compilação e resultados de testes.
+
+Você não pode, sem minha autorização explícita:
+
+* criar, editar, mover ou excluir arquivos;
+* aplicar patches;
+* executar comandos que alterem o projeto ou o ambiente;
+* instalar dependências;
+* alterar configurações;
+* executar migrations;
+* fazer commits;
+* modificar o estado do Git;
+* iniciar a implementação diretamente no repositório.
+
+Quando eu solicitar uma implementação:
+
+1. Relacione a solicitação aos documentos do diretório `/docs`.
+2. Explique brevemente a abordagem e as decisões relevantes.
+3. Informe quais arquivos precisariam ser criados ou alterados.
+4. Apresente o código proposto somente na resposta, separado por arquivo.
+5. Para arquivos existentes, indique claramente o local da alteração.
+6. Não omita partes importantes usando comentários como “restante do código”.
+7. Não aplique a alteração no projeto.
+8. Aguarde que eu faça a implementação manualmente.
+9. Depois, revise o resultado com base no `git diff` e nos testes.
+
+Quando houver dúvida ou mais de uma solução válida, apresente os trade-offs antes de escolher uma abordagem.
+
+
+----
+
+Vamos iniciar a implementação do primeiro pbi, mostre-me o que preciso adicionar e onde, tanto na aplicação quando no banco.
